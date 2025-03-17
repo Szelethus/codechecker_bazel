@@ -18,11 +18,21 @@ COMPILE_COMMANDS_JSON=$1
 shift
 COMPILE_COMMANDS_ABS=$COMPILE_COMMANDS_JSON.abs
 sed 's|"directory":"."|"directory":"'$(pwd)'"|g' $COMPILE_COMMANDS_JSON > $COMPILE_COMMANDS_ABS
-echo "Running: $@" $COMPILE_COMMANDS_ABS > $LOG_FILE
-echo "==================================" >> $LOG_FILE
+echo "CodeChecker command: $@" $COMPILE_COMMANDS_ABS > $LOG_FILE
+echo "===-----------------------------------------------------===" >> $LOG_FILE
+echo "                   CodeChecker error log                   " >> $LOG_FILE
+echo "===-----------------------------------------------------===" >> $LOG_FILE
 eval "$@" $COMPILE_COMMANDS_ABS >> $LOG_FILE 2>&1
 # ls -la $DATA_DIR
 # NOTE: the following we do to get rid of md5 hash in plist file names
+ret_code=$?
+echo "===-----------------------------------------------------===" >> $LOG_FILE
+if [ $ret_code -eq 1 ]; then
+    echo "===-----------------------------------------------------==="
+    echo "[ERROR]: CodeChecker returned with -1!"
+    cat $LOG_FILE
+    exit 1
+fi
 cp $DATA_DIR/*_clang-tidy_*.plist $CLANG_TIDY_PLIST
 cp $DATA_DIR/*_clangsa_*.plist    $CLANGSA_PLIST
 
