@@ -80,6 +80,8 @@ def _codechecker_local_repository_impl(repository_ctx):
 
     codechecker_bin_path = repository_ctx.which("CodeChecker")
     if not codechecker_bin_path:
+        print("ERROR detected")
+        print(repository_ctx.getenv("PATH"))
         fail("ERROR! CodeChecker is not detected")
 
     defs = "CODECHECKER_BIN_PATH = '{}'\n".format(codechecker_bin_path)
