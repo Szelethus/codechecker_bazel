@@ -41,6 +41,7 @@ def fail(message, exit_code=1):
     print()
     print("*" * 50)
     print("codechecker script execution FAILED!")
+    print(os.environ['PATH'])
     if log_file_name():
         print("See: %s" % log_file_name())
         print("*" * 50)
