@@ -78,6 +78,8 @@ def _codechecker_local_repository_impl(repository_ctx):
         executable = False,
     )
 
+    print(repository_ctx.attr)
+
     codechecker_bin_path = repository_ctx.which("CodeChecker")
     if not codechecker_bin_path:
         print("ERROR detected")
