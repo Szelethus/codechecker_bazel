@@ -171,6 +171,7 @@ def analyze():
     if "PATH" not in env:
         env["PATH"] = "/bin"  # NOTE: this is workaround for CodeChecker 6.24.4
     logging.debug("env: %s", str(env))
+    logging.debug("interpreter: %s", str(sys.executable))
     logging.debug("modules: %s", str(help('modules')))
 
     output = execute("%s analyzers --details" % CODECHECKER_PATH, env=env)
