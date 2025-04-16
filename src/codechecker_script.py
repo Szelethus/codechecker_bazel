@@ -171,7 +171,7 @@ def analyze():
             env.update(codechecker_env)
     if "PATH" not in env:
         env["PATH"] = "/bin"  # NOTE: this is workaround for CodeChecker 6.24.4
-    logging.debug("env: %s", str(env))
+    logging.debug("Env from wrapper: %s", str(env))
     logging.debug("wrapper interpreter: %s", str(sys.executable))
     logging.debug("Modules list from wrapper: %s", str(
         [name for _, name, _ in pkgutil.iter_modules()]))
