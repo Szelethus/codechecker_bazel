@@ -159,6 +159,13 @@ def prepare():
     create_folder(CODECHECKER_FILES)
 
 
+def find_prog(prog):
+    try:
+        return subprocess.check_output(["which", prog])
+    except subprocess.CalledProcessError:
+        return None
+
+
 def analyze():
     """ Run CodeChecker analyze command """
     stage("CodeChecker analyze:")
@@ -174,6 +181,7 @@ def analyze():
     logging.debug("Env from wrapper: %s", str(env))
     logging.debug("wrapper interpreter: %s", str(
         os.path.realpath(sys.executable)))
+    logging.debug('which python3: %s', find_prog('python3'))
     logging.debug("Modules list from wrapper: %s", str(
         [name for _, name, _ in pkgutil.iter_modules()]))
 
