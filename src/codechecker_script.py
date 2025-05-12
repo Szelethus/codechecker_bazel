@@ -13,7 +13,6 @@ import re
 import shlex
 import subprocess
 import sys
-import pkgutil
 
 
 EXECUTION_MODE = "{Mode}"
@@ -42,7 +41,6 @@ def fail(message, exit_code=1):
     print()
     print("*" * 50)
     print("codechecker script execution FAILED!")
-    print(os.environ['PATH'])
     if log_file_name():
         print("See: %s" % log_file_name())
         print("*" * 50)
@@ -160,13 +158,6 @@ def prepare():
     create_folder(CODECHECKER_FILES)
 
 
-def find_prog(prog):
-    try:
-        return subprocess.check_output(["which", prog])
-    except subprocess.CalledProcessError:
-        return None
-
-
 def analyze():
     """ Run CodeChecker analyze command """
     stage("CodeChecker analyze:")
@@ -179,12 +170,7 @@ def analyze():
             env.update(codechecker_env)
     if "PATH" not in env:
         env["PATH"] = "/bin"  # NOTE: this is workaround for CodeChecker 6.24.4
-    # logging.debug("Env from wrapper: %s", str(env))
-    logging.debug("wrapper interpreter: %s", str(
-        os.path.realpath(sys.executable)))
-    # logging.debug('which python3: %s', find_prog('python3'))
-    # logging.debug("Modules list from wrapper: %s", str(
-    #     [name for _, name, _ in pkgutil.iter_modules()]))
+    logging.debug("env: %s", str(env))
 
     output = execute("%s analyzers --details" % CODECHECKER_PATH, env=env)
     logging.debug("Analyzers:\n\n%s", output)
