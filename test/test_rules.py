@@ -173,7 +173,7 @@ class TestBasic(TestBase):
         """Test: bazel test :clang_ctu_fail"""
         # FIXME: Currently failing in github CI.
         self.assertIsNotNone(shutil.which("clang-extdef-mapping"))
-        self.check_command("bazel test :clang_ctu_fail", exit_code=2)
+        self.check_command("bazel test :clang_ctu_fail", exit_code=3)
         logfile = os.path.join(
             self.BAZEL_TESTLOGS_DIR, "clang_ctu_fail", "test.log")
         logging.debug("LOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOG:")
