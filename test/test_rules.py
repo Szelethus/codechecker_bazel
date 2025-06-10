@@ -19,6 +19,7 @@ import logging
 import os
 import re
 import shlex
+import shutil
 import subprocess
 import sys
 import unittest
@@ -171,6 +172,7 @@ class TestBasic(TestBase):
     def test_bazel_test_clang_ctu_fail(self):
         """Test: bazel test :clang_ctu_fail"""
         # FIXME: Currently failing in github CI.
+        self.assertIsNotNone(shutil.which("clang-extdef-mapping"))
         self.check_command("bazel test :clang_ctu_fail", exit_code=2)
         logfile = os.path.join(
             self.BAZEL_TESTLOGS_DIR, "clang_ctu_fail", "test.log")
