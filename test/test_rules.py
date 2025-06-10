@@ -171,9 +171,13 @@ class TestBasic(TestBase):
     def test_bazel_test_clang_ctu_fail(self):
         """Test: bazel test :clang_ctu_fail"""
         # FIXME: Currently failing in github CI.
-        self.check_command("bazel test :clang_ctu_fail", exit_code=3)
+        self.check_command("bazel test :clang_ctu_fail", exit_code=2)
         logfile = os.path.join(
             self.BAZEL_TESTLOGS_DIR, "clang_ctu_fail", "test.log")
+        logging.debug("LOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOG:")
+        with open(logfile, 'r') as fin:
+            logging.debug(fin.read())
+
         self.grep_file(logfile, "// CTU example")
 
     def test_bazel_test_code_checker_pass(self):

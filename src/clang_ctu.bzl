@@ -373,6 +373,7 @@ def _clang_ctu_impl(ctx):
                     cat $f
                 fi
             done
+            echo "Exit code: $exit_code"
             exit $exit_code
         """.format(reports),
     )
@@ -380,6 +381,7 @@ def _clang_ctu_impl(ctx):
         direct = all_files,
     )
     run_files = [ctx.outputs.test_script] + all_files
+    print("DOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOONE")
     return [
         DefaultInfo(
             files = files,
