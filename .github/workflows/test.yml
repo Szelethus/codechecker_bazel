@@ -43,3 +43,6 @@ jobs:
                "CodeChecker finds different analyzers when running in " \
                "bazel's sandbox environment!"
           CodeChecker analyzers
+
+      - name: Run tests
+        run: python3 test/test.py -vvv

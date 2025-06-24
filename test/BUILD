@@ -175,11 +175,9 @@ codechecker_test(
 codechecker_suite(
     name = "codechecker_pass_multi",
     config = "codechecker_config_json",
-    # platforms = [
-    #     "@platforms//os:linux",
-    #     "@platforms//os:ios",
-    #     "@platforms//os:android",
-    # ],
+    platforms = [
+        "@platforms//os:android",
+    ],
     targets = [
         "test_pass",
     ],
