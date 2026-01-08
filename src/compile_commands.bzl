@@ -116,11 +116,6 @@ def get_compile_flags(ctx, dep):
                 for dep in deps:
                     if CcInfo in dep:
                         compilation_context = dep[CcInfo].compilation_context
-                        for system_include in compilation_context.system_includes.to_list():
-                            if len(system_include) == 0:
-                                system_include = "."
-                            options.append(SYSTEM_INCLUDE + system_include)
-
                         for include in compilation_context.includes.to_list():
                             if len(include) == 0:
                                 include = "."
